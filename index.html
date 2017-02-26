@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Météo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    
+    <div>
+    <h2>Tu es à <span id="ou"></span></h2>
+    </div>
+    
+    <script>
+//        
+//    var getLocation = function(data) {
+//            var ville = data.city;
+//        };
+        
+    $(document).ready(function() {
+        
+       
+        
+         $.getJSON('http://ip-api.com/json', function(json) {
+             
+             var ville = json.city;
+             var lat = json.lat;
+             var lon = json.lon;
+             
+             var url = "http://api.openweathermap.org/data/2.5/weather?q=" + ville + "&appid=2b4fcb9736891fa6e1643a3388516387";
+             
+             console.log(json.lat);
+             console.log(json.lon);
+             
+             $("#ou").html(ville);
+        
+        console.log(url);
+        
+      });
+    });
+    
+
+    
+    </script>
+    
+    
+<!--
+    $(document).ready(function() {
+  $("#getMessage").on("click", function(){
+      var x = Math.floor((Math.random()) * 30);
+      $.getJSON("http://chucknorrisfacts.fr/api/get?data=tri:alea;nb:30", function(json) {
+          $("#mots").html(json[x].fact);
+          
+//OK... So, la fonction decodeHTML est nécessaire parce que, pour une raison que je ne pourrais pas expliquer, json[x].fact est encodé http quand je le transmet à Twitter (alors qu'il est parfaitement fine quand je le passe dans ma page... Anyway. Probablement parce que justement, je recevais le fact de cnf.fr en http et que safari traduisait les accents automatiqment, de sorte que je ne les voyais jamais.) 
+          
+          function decodeHtml(html) {
+              var txt = document.createElement("textarea");
+              txt.innerHTML = html;
+              return txt.value;
+          }
+          
+          $("#gaz").attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(decodeHtml(json[x].fact)));          
+    });       
+  });      
+}); 
+-->
+    
+    
+    
+    
+</body>
+
+</html>
