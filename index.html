@@ -11,11 +11,11 @@
     
     <div id="info">
     <h1>Tu es à <span id="ou"></span>, comme disent les Anglais.</h1><br>
-        <h2>Il y fait <span id="deg"></span> degrés et <span id="quoi"></span>.</h2><br>
+        <h2>Il y fait <span id="deg"></span> et <span id="quoi"></span>.</h2><br>
         
-        <form>
-           <button id="F">C°/F°</button>
-        </form>
+    
+           <button id="standard">C°/F°</button>
+        
         
         
         
@@ -33,23 +33,32 @@
              lon = json.lon;
              unit = "metric";
              url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=" + unit + "&lang=fr&appid=2b4fcb9736891fa6e1643a3388516387";
-             
-             
+
                  
              $.getJSON(url, function(data) {
                  
                  var temperature = data.weather[0].description;
-                 var deg = data.main.temp;
+                 var degC = Math.round(data.main.temp) + "°C";
+                 var degF = Math.round(data.main.temp * 5/9 + 32)+ "°F";
+                 var degFC = true;
                  var ville = data.name;
                  var main = data.weather[0].main;
                  
                  
                  $("#ou").html(ville); 
                  $("#quoi").html(temperature);
-                 $("#deg").html(Math.round(deg));
+                 $("#deg").html(degC);
                  
-                 console.log(temperature);
-                 console.log(url);
+                 $("#standard").on("click",function() {
+                     if (degFC == true) {
+                   $("#deg").html(degF);
+                          degFC = false;
+                   
+                     } else {
+                         $("#deg").html(degC);
+                         degFC = true;
+                     }
+                  });
                  
                  switch (main) {
                      case "Thunderstorm":
@@ -84,14 +93,8 @@
                          $("html").css("background-image",'url("https://i.ytimg.com/vi/9qhIGeichIM/maxresdefault.jpg")');
                          break;
                  };   
-                 
-                 
-                 
              });
          });
-        
-        $('input[type=radio][name=fahrenheit-celcius]')
-        
     });
      
     
