@@ -10,11 +10,10 @@
 <body id="body">
     
     <div id="info">
-    <h1>Tu es à <span id="ou"></span>, comme disent les Anglais.</h1><br>
+        <h1>Tu es à <span id="ou"></span>, comme disent les Anglais.</h1><br>
         <h2>Il y fait <span id="deg"></span> degrés et <span id="quoi"></span>.</h2><br>
         
-        <button id="F" onclick="">In fahrenheit, Frenchy!</button>
-        
+        <button id="F" onclick="">In fahrenheit, Frenchy!</button> 
     </div>
     
     <script>
@@ -29,9 +28,7 @@
              lon = json.lon;
              unit = "metric";
              url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=" + unit + "&lang=fr&appid=2b4fcb9736891fa6e1643a3388516387";
-             
-             
-                 
+              
              $.getJSON(url, function(data) {
                  
                  var temperature = data.weather[0].description;
@@ -44,15 +41,12 @@
                  $("#quoi").html(temperature);
                  $("#deg").html(Math.round(deg));
                  
-                 console.log(temperature);
-                 console.log(url);
-                 
                  switch (main) {
                      case "Thunderstorm":
                          $("html").css("background-image", 'url("https://www.2tout2rien.fr/wp-content/uploads/2014/01/terrifiantes-et-superbes-photos-de-tempete-qui-arrive-18.jpg")');
                          break; 
                          
-                         case "Drizzle":
+                     case "Drizzle":
                          $("html").css("background-image", 'url("https://uphilldowndale.files.wordpress.com/2008/04/shades-of-grey.jpg")');
                          break;
                         
@@ -64,7 +58,7 @@
                          $("html").css("background-image",'url("https://choualbox.com/Img/20130310150214U.jpg")');
                          break;
                          
-                    case "Snow":
+                     case "Snow":
                          $("html").css("background-image",'url("http://kevenroy.ca/wp-content/uploads/2016/02/121221_de4ds_ste-adele-neige_sn1250.jpg")');
                          break;
                          
@@ -79,11 +73,10 @@
                      case "Rain":
                          $("html").css("background-image",'url("https://i.ytimg.com/vi/9qhIGeichIM/maxresdefault.jpg")');
                          break;
-                 }                 
+                 }          
+                 
              });
-         });
-        
-        
+         });    
     });
      
     
