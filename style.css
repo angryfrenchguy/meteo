@@ -1,3 +1,25 @@
 * {
     font-family: monospace;
 }
+
+
+html {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+    
+#info {
+    width: 50%;
+    margin: auto;
+    color: white;
+}
+
+#F {
+    display: block;
+    font-size: 14px;
+    background-color: whitesmoke;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}

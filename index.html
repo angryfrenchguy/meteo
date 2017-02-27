@@ -7,69 +7,87 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body id="body">
     
-    <div>
-    <h2>Tu es à <span id="ou"></span></h2>
+    <div id="info">
+    <h1>Tu es à <span id="ou"></span>, comme disent les Anglais.</h1><br>
+        <h2>Il y fait <span id="deg"></span> degrés et <span id="quoi"></span>.</h2><br>
+        
+        <button id="F" onclick="">In fahrenheit, Frenchy!</button>
+        
     </div>
     
     <script>
-//        
-//    var getLocation = function(data) {
-//            var ville = data.city;
-//        };
         
     $(document).ready(function() {
         
-       
-        
+        var url, ville, lon, lat, unit;
+
          $.getJSON('http://ip-api.com/json', function(json) {
              
-             var ville = json.city;
-             var lat = json.lat;
-             var lon = json.lon;
+             lat = json.lat;
+             lon = json.lon;
+             unit = "metric";
+             url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=" + unit + "&lang=fr&appid=2b4fcb9736891fa6e1643a3388516387";
              
-             var url = "http://api.openweathermap.org/data/2.5/weather?q=" + ville + "&appid=2b4fcb9736891fa6e1643a3388516387";
              
-             console.log(json.lat);
-             console.log(json.lon);
-             
-             $("#ou").html(ville);
+                 
+             $.getJSON(url, function(data) {
+                 
+                 var temperature = data.weather[0].description;
+                 var deg = data.main.temp;
+                 var ville = data.name;
+                 var main = data.weather[0].main;
+                 
+                 
+                 $("#ou").html(ville); 
+                 $("#quoi").html(temperature);
+                 $("#deg").html(deg);
+                 
+                 console.log(temperature);
+                 console.log(url);
+                 
+                 switch (main) {
+                     case "Thunderstorm":
+                         $("html").css("background-image", 'url("https://www.2tout2rien.fr/wp-content/uploads/2014/01/terrifiantes-et-superbes-photos-de-tempete-qui-arrive-18.jpg")');
+                         break; 
+                         
+                         case "Drizzle":
+                         $("html").css("background-image", 'url("https://uphilldowndale.files.wordpress.com/2008/04/shades-of-grey.jpg")');
+                         break;
+                        
+                     case "Clear":
+                         $("html").css("background-image", 'url("http://www.sunyatazenconseil.com/medias/images/ciel-bleu.jpg")');
+                         break;
+                         
+                     case "Clouds":
+                         $("html").css("background-image",'url("https://choualbox.com/Img/20130310150214U.jpg")');
+                         break;
+                         
+                    case "Snow":
+                         $("html").css("background-image",'url("http://kevenroy.ca/wp-content/uploads/2016/02/121221_de4ds_ste-adele-neige_sn1250.jpg")');
+                         break;
+                         
+                     case "Additional":
+                         $("html").css("background-image", 'url("http://farm6.staticflickr.com/5294/5466322673_cd2460e257_o.jpg")');
+                         break;
+                         
+                     case "Extreme":
+                         $("html").css("background-image",'url("http://www.meteocity.com/medias/magazine/articles/original/tornade-moselle2.jpg")');
+                         break;
+                         
+                     case "Rain":
+                         $("html").css("background-image",'url("https://i.ytimg.com/vi/9qhIGeichIM/maxresdefault.jpg")');
+                         break;
+                 }                 
+             });
+         });
         
-        console.log(url);
         
-      });
     });
-    
-
+     
     
     </script>
     
-    
-<!--
-    $(document).ready(function() {
-  $("#getMessage").on("click", function(){
-      var x = Math.floor((Math.random()) * 30);
-      $.getJSON("http://chucknorrisfacts.fr/api/get?data=tri:alea;nb:30", function(json) {
-          $("#mots").html(json[x].fact);
-          
-//OK... So, la fonction decodeHTML est nécessaire parce que, pour une raison que je ne pourrais pas expliquer, json[x].fact est encodé http quand je le transmet à Twitter (alors qu'il est parfaitement fine quand je le passe dans ma page... Anyway. Probablement parce que justement, je recevais le fact de cnf.fr en http et que safari traduisait les accents automatiqment, de sorte que je ne les voyais jamais.) 
-          
-          function decodeHtml(html) {
-              var txt = document.createElement("textarea");
-              txt.innerHTML = html;
-              return txt.value;
-          }
-          
-          $("#gaz").attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(decodeHtml(json[x].fact)));          
-    });       
-  });      
-}); 
--->
-    
-    
-    
-    
 </body>
-
 </html>
