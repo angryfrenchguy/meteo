@@ -10,11 +10,11 @@
 <body id="body">
     
     <div id="info">
-    <h1>Tu es à <span id="ou"></span>, comme disent les Anglais.</h1><br>
-        <h2>Il y fait <span id="deg"></span> et <span id="quoi"></span>.</h2><br>
+    <h1 id="ou"></h1>
+    <h2 id="phrase">Il y fait <span id="deg"></span> et <span id="quoi"></span>.</h2>
         
     
-           <button id="standard">C°/F°</button>
+    <button id="standard">C°/F°</button>
         
         
         
@@ -23,14 +23,20 @@
     
     <script>
         
+        console.log('https://maps.googleapis.com/maps/api/geocode/json?address=montreal&language=fr')
+        
     $(document).ready(function() {
         
         var url, ville, lon, lat, unit;
 
-         $.getJSON('http://ip-api.com/json', function(json) {
+//         $.getJSON('http://ip-api.com/json', function(json) {
+        
+         $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=montreal&language=fr', function(json) {
              
-             lat = json.lat;
-             lon = json.lon;
+             
+             lat = json.results[0].geometry.location.lat;
+             lon = json.results[0].geometry.location.lng;
+             ville = json.results[0].address_components[0].long_name;
              unit = "metric";
              url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=" + unit + "&lang=fr&appid=2b4fcb9736891fa6e1643a3388516387";
 
@@ -41,7 +47,7 @@
                  var degC = Math.round(data.main.temp) + "°C";
                  var degF = Math.round(data.main.temp * 5/9 + 32)+ "°F";
                  var degFC = true;
-                 var ville = data.name;
+//                 var ville = data.name;
                  var main = data.weather[0].main;
                  
                  
@@ -93,6 +99,8 @@
                          $("html").css("background-image",'url("https://i.ytimg.com/vi/9qhIGeichIM/maxresdefault.jpg")');
                          break;
                  };   
+                 
+                 console.log(url);
              });
          });
     });

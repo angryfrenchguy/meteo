@@ -1,5 +1,5 @@
 * {
-    font-family: monospace;
+    font-family: sans-serif;
 }
 
 
@@ -8,9 +8,19 @@ html {
     background-size: cover;
     height: 100%;
 }
+
+#ou {
+    font-size: 3em;
+    text-align: center;
+}
+
+#phrase {
+    margin: auto;
+    padding: 0px 10px 0px 10px;
+}
     
 #info {
-    width: 50%;
+/*    width: 50%;*/
     margin: auto;
     color: white;
 }
@@ -22,4 +32,6 @@ html {
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
+    margin: 20px 10px;
+    
 }
