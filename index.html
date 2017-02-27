@@ -13,7 +13,11 @@
     <h1>Tu es à <span id="ou"></span>, comme disent les Anglais.</h1><br>
         <h2>Il y fait <span id="deg"></span> degrés et <span id="quoi"></span>.</h2><br>
         
-        <button id="F" onclick="">In fahrenheit, Frenchy!</button>
+        <form>
+           <button id="F">C°/F°</button>
+        </form>
+        
+        
         
     </div>
     
@@ -79,10 +83,14 @@
                      case "Rain":
                          $("html").css("background-image",'url("https://i.ytimg.com/vi/9qhIGeichIM/maxresdefault.jpg")');
                          break;
-                 }                 
+                 };   
+                 
+                 
+                 
              });
          });
         
+        $('input[type=radio][name=fahrenheit-celcius]')
         
     });
      
